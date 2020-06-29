@@ -14,7 +14,7 @@ class Isla {
 	method avesPulentas() = aves.filter{ave=>ave.fuerza().between(1000,3000)}
 	method estaEnPaz()= aves.all{ave=>ave.estaConforme(self)}
 	method relax() = aves.forEach{ave=>ave.relajarse()}
-	method alimentacion(){}
+	method alimentacion(){aves.forEach{ave=>ave.alimentarseDe(self)}}
 	method alimentarConAlpiste(cant){ unidadesDeAlpiste -= cant}
 	method alimentarConMaiz(cant){ unidadeDeMaiz -= cant}
 }

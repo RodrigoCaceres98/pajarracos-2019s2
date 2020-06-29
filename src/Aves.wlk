@@ -6,7 +6,7 @@ class Ave {
 	method recibirDisgusto()
 	method relajarse()
 	method estaConforme (isla)
-//	method alimentarseDe(isla)
+	method alimentarseDe(isla)
 	
 }
 
@@ -19,11 +19,11 @@ class Aguiluchos inherits Ave {
 	}
 	override method recibirDisgusto(){velocidad *= 2}
 	override method relajarse() { velocidad -= 10}
-	override method estaConforme(isla) = isla.alpiste() >= 8
-	/*override method alimentarseDe(isla) {
+	override method estaConforme(isla) = isla.unidadesDeAlpiste() >= 8
+	override method alimentarseDe(isla) {
 		velocidad += 15
 		isla.alimentarConAlpiste(3)
-	}*/
+	}
 }
 class Albatros inherits Ave {
 	var property masaMuscular = 600
@@ -42,11 +42,11 @@ class Albatros inherits Ave {
 	const avesMasFuertes = isla.aves().count{ave=>ave.fuerza() > self.fuerza()}
 	return avesMasFuertes >= 2	
 	}
-/* 	override method alimentarseDe(isla) {
+ 	override method alimentarseDe(isla) {
 		masaMuscular += 700
 		peso += 700
 		isla.alimentarConMaiz(4)
-	}*/
+	}
 }
 class Palomas inherits Ave {
 	var property ira = 200 
@@ -61,6 +61,7 @@ class Palomas inherits Ave {
 		}
 		else {self.relajarse()}
 	}
+	override method alimentarseDe(isla){}
 }
 class AguiluchoColorado inherits Aguiluchos {
 	override method fuerza() =super() + 400 
@@ -86,8 +87,20 @@ class PalomaMontera inherits Palomas {
 class PalomaManchada inherits Palomas {
 	var property nidos = #{}
 	method agregarNido(nido){ nidos.add(nido)}
+	override method recibirDisgusto(){
+		super()
+		self.agregarNido(new Nidos())
+	}
+	override method relajarse(){
+		super()
+		nidos.forEach{nido=>nido.grosor() + 1}
+	
+	}
+	override method ira() = super() + nidos.sum{nido=>nido.potencia()}
 }
 class Nidos {
-	var property grosor 
+	var property grosor = 5
+	var property resistenciaDelMaterial =3
+	method potencia()= grosor * resistenciaDelMaterial + 20 
 }
 
