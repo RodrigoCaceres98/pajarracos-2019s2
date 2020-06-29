@@ -96,7 +96,12 @@ class PalomaManchada inherits Palomas {
 		nidos.forEach{nido=>nido.grosor() + 1}
 	
 	}
-	override method ira() = super() + nidos.sum{nido=>nido.potencia()}
+	override method ira(){
+		if(nidos.size() > 2){
+			return super() + nidos.sum{nido=>nido.potencia()}
+		}
+		else {return super()}
+	}
 }
 class Nidos {
 	var property grosor = 5
