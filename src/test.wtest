@@ -1,0 +1,47 @@
+import Aves.*
+import Isla.*
+describe"isla" {
+	const colo = new AguiluchoColorado()
+	const albatro = new Albatros()
+	const palomaTocaza = new PalomaTorcaza()
+	const isla = new Isla()
+	
+fixture  {
+	albatro.irAlGimnacio()
+	isla.agregarAve(colo)
+	isla.agregarAve(albatro)
+	isla.agregarAve(palomaTocaza)
+	}
+test "isla"{
+	assert.equals(580,colo.fuerza())
+	assert.equals(1100,albatro.fuerza())
+	assert.equals(700,palomaTocaza.fuerza())
+	assert.equals(4500,albatro.peso())
+	assert.equals(2380,isla.fuerzaTotal())
+	assert.equals([colo,palomaTocaza],isla.avesDebiles())
+}
+}
+
+
+
+describe "terremoto" {
+	const colo1 = new AguiluchoColorado()
+	const albatro1 = new Albatros()
+	const palomaTocaza1 = new PalomaTorcaza()
+	const isla1 = new Isla()
+	fixture {
+	albatro1.irAlGimnacio()
+	isla1.agregarAve(colo1)
+	isla1.agregarAve(albatro1)
+	isla1.agregarAve(palomaTocaza1)
+	isla1.huboTerremoto()
+	}
+	test "terremoto" {
+	assert.equals(40,colo1.velocidad())
+	assert.equals(5300,albatro1.peso())
+	assert.equals(500,palomaTocaza1.ira())
+	assert.equals([colo1],isla1.avesDebiles())
+	}
+}
+
+
